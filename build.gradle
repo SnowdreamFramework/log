@@ -1,0 +1,71 @@
+buildscript {
+    apply from: "${rootDir}/gradle/plugins/dependencies.gradle"
+
+    repositories {
+        maven { url  'file:///' + System.getenv("ANDROID_HOME")+ '/extras/android/m2repository/'}
+        maven { url  'file:///' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath}
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+        jcenter { url "http://jcenter.bintray.com/"}
+        maven { url "http://repo1.maven.org/maven2"}
+        maven { url "https://jitpack.io" }
+        maven { url "http://oss.sonatype.org/content/repositories/snapshots" }
+    }
+
+    dependencies {
+        //android
+        classpath deps.'android-gradle-plugin'
+
+        //maven
+        classpath deps.'android-maven-gradle-plugin'
+        classpath deps.'gradle-bintray-plugin'
+
+        //kotlin and dokka
+        classpath deps.'kotlin-gradle-plugin'
+        classpath deps.'dokka-android-gradle-plugin'
+        classpath deps.'dokka-gradle-plugin'
+
+        //snowdream
+        classpath deps.'android-toybricks-gradle-plugin'
+//        classpath files('plugin/build/libs/android-toybricks-gradle-plugin-0.9.5.jar')
+//        classpath "com.github.snowdream.toybricks:annotation:0.9.5"
+//        classpath 'com.squareup:javapoet:1.8.0'
+    }
+
+}
+
+allprojects {
+    apply from: "${rootDir}/gradle/plugins/dependencies.gradle"
+
+    repositories {
+        maven { url  'file:///' + System.getenv("ANDROID_HOME")+ '/extras/android/m2repository/'}
+        maven { url  'file:///' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath}
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+        jcenter { url "http://jcenter.bintray.com/"}
+        maven { url "http://repo1.maven.org/maven2"}
+        maven { url "https://jitpack.io" }
+        maven { url "http://oss.sonatype.org/content/repositories/snapshots" }
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+    }
+
+    tasks.withType(Javadoc) {
+        options {
+            locale = 'en_US'
+            encoding = 'UTF-8'
+            charSet = 'UTF-8'
+            links("http://docs.oracle.com/javase/7/docs/api/")
+        }
+    }
+}
+
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.3'
+    distributionUrl = "http://android-mirror.bugly.qq.com:8080/gradle/gradle-${gradleVersion}-bin.zip"
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
