@@ -26,8 +26,8 @@ buildscript {
 
         //snowdream
         classpath deps.'android-toybricks-gradle-plugin'
-//        classpath files('plugin/build/libs/android-toybricks-gradle-plugin-0.9.5.jar')
-//        classpath "com.github.snowdream.toybricks:annotation:0.9.5"
+//        classpath files('plugin/build/libs/android-toybricks-gradle-plugin-0.9.9.jar')
+//        classpath "com.github.snowdream.toybricks:annotation:0.9.9"
 //        classpath 'com.squareup:javapoet:1.8.0'
     }
 

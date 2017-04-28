@@ -23,7 +23,7 @@ ext {
             "dokka-gradle-plugin"                : "org.jetbrains.dokka:dokka-gradle-plugin:0.9.13",
 
             //snowdream
-            "android-toybricks-gradle-plugin"    : "com.github.snowdream.toybricks:android-toybricks-gradle-plugin:0.9.5",
+            "android-toybricks-gradle-plugin"    : "com.github.snowdream.toybricks:android-toybricks-gradle-plugin:0.9.9",
             "snowdream-annotation"               : "com.github.snowdream:annotation:0.7@aar",
     ]
 }
