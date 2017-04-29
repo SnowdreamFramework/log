@@ -17,25 +17,46 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-       FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                ILog logger   = Log.getLogger(getApplicationContext(),true,true);
-
-
-                for (int i = 0; i <= 100000 ; i++){
-                    logger.i("ILog", String.valueOf(i));
-                }
+                testLogWithTrunk();
 
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                    .setAction("Action", null).show();
             }
         });
+    }
+
+    private void testLogWithTrunk() {
+        ILog logger = Log.getLogger(getApplicationContext(), true, true);
+
+        StringBuffer buffer = new StringBuffer();
+        int ret;
+        for (int i = 0; i <= 4000; i++) {
+            if (i == 4000) {
+                ret = 2;
+            } else {
+                ret = 1;
+            }
+
+            buffer.append(ret);
+        }
+
+        logger.i("ILog", buffer.toString());
+    }
+
+    private void testLogs() {
+        ILog logger = Log.getLogger(getApplicationContext(), true, true);
+
+        for (int i = 0; i <= 100000; i++) {
+            logger.i("ILog", String.valueOf(i));
+        }
     }
 
     @Override

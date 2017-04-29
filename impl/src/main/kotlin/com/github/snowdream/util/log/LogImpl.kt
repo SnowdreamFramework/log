@@ -17,6 +17,8 @@ class LogImpl : ILog {
 
     private var mSingleThreadExecutor: ExecutorService = Executors.newSingleThreadExecutor()
 
+    private val LOG_MAX_LENGTH:Int = 4 * 1000
+
     override fun setOption(option: LogOption) {
         this.mOption = option
     }
@@ -102,12 +104,25 @@ class LogImpl : ILog {
      */
     fun process(level: Int, tag: String, msg: String, tr: Throwable?) {
         mSingleThreadExecutor.execute({
-            //log Processors
-            val item: LogItem = LogItem(level, tag, msg, tr)
-            val logProcessors: List<AbstractLogProcessor> = mOption.logProcessors
+            if (msg.length <= LOG_MAX_LENGTH){
+                //log Processors
+                val item: LogItem = LogItem(level, tag, msg, tr)
+                val logProcessors: List<AbstractLogProcessor> = mOption.logProcessors
 
-            logProcessors.forEach {
-                it.process(item)
+                logProcessors.forEach {
+                    it.process(item)
+                }
+            }else{
+                var log:String = msg
+
+                while (log.length > LOG_MAX_LENGTH){
+                    val trunk:String = log.substring(0, LOG_MAX_LENGTH)
+                    process(level,tag,trunk,tr)
+
+                    log = log.substring(LOG_MAX_LENGTH)
+                }
+
+                process(level,tag,log,tr)
             }
         })
 
