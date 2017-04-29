@@ -7,6 +7,7 @@ import android.os.Message
 import com.github.snowdream.util.log.LogItem
 import com.github.snowdream.util.log.filter.AbstractLogFilter
 import com.github.snowdream.util.log.formatter.AbstractLogFormatter
+import com.github.snowdream.util.log.formatter.DefaultFileFormatter
 import com.github.snowdream.util.log.formatter.DefaultFormatter
 import com.github.snowdream.util.log.generator.AbstractFilePathGenerator
 import com.github.snowdream.util.log.generator.DefaultFilePathGenerator
@@ -20,7 +21,7 @@ class LogFileProcessor : AbstractLogProcessor {
     private var mLogFileManager: LogFileManager = LogFileManager()
 
     constructor(context: Context) : super(context) {
-        mLogFormatter = DefaultFormatter()
+        mLogFormatter = DefaultFileFormatter()
         mFilePathGenerator = DefaultFilePathGenerator(context, "app", ".log")
 
         mHandlerThread = HandlerThread("LogFileProcessor")

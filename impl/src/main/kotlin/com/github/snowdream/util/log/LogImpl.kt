@@ -5,16 +5,20 @@ import com.github.snowdream.toybricks.annotation.Implementation
 import com.github.snowdream.util.log.processor.AbstractLogProcessor
 import com.github.snowdream.util.log.processor.LogConsoleProcessor
 import com.github.snowdream.util.log.processor.LogFileProcessor
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
 
 /**
  * Created by snowdream on 17/4/22.
  */
 @Implementation(ILog::class)
 class LogImpl : ILog {
-    private lateinit var option: LogOption
+    private lateinit var mOption: LogOption
+
+    private var mSingleThreadExecutor: ExecutorService = Executors.newSingleThreadExecutor()
 
     override fun setOption(option: LogOption) {
-        this.option = option
+        this.mOption = option
     }
 
     override fun setOption(context: Context, console: Boolean, file: Boolean) {
@@ -30,7 +34,7 @@ class LogImpl : ILog {
             logProcessors.add(logFileProcessor)
         }
 
-        this.option = LogOption(logProcessors)
+        this.mOption = LogOption(logProcessors)
     }
 
     override fun v(tag: String, msg: String, tr: Throwable?) {
@@ -73,13 +77,16 @@ class LogImpl : ILog {
      * process the log
      */
     fun process(level: Int, tag: String, msg: String, tr: Throwable?) {
-        //log Processors
-        val item: LogItem = LogItem(level, tag, msg, tr)
-        val logProcessors: List<AbstractLogProcessor> = option.logProcessors
+        mSingleThreadExecutor.execute({
+            //log Processors
+            val item: LogItem = LogItem(level, tag, msg, tr)
+            val logProcessors: List<AbstractLogProcessor> = mOption.logProcessors
 
-        logProcessors.forEach {
-            it.process(item)
-        }
+            logProcessors.forEach {
+                it.process(item)
+            }
+        })
+
     }
 
     override fun getStackTraceString(tr: Throwable?): String {

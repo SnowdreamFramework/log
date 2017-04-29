@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
                 ILog logger   = Log.getLogger(getApplicationContext(),true,true);
 
 
-                for (int i = 0; i <= 1000 ; i++){
+                for (int i = 0; i <= 100000 ; i++){
                     logger.i("ILog: ", String.valueOf(i),null);
                 }
 
