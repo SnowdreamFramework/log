@@ -41,16 +41,32 @@ class LogImpl : ILog {
         process(Log.VERBOSE, tag, msg, tr)
     }
 
+    override fun v(tag: String, msg: String) {
+        process(Log.VERBOSE, tag, msg, null)
+    }
+
     override fun d(tag: String, msg: String, tr: Throwable?) {
         process(Log.DEBUG, tag, msg, tr)
+    }
+
+    override fun d(tag: String, msg: String) {
+        process(Log.DEBUG, tag, msg, null)
     }
 
     override fun i(tag: String, msg: String, tr: Throwable?) {
         process(Log.INFO, tag, msg, tr)
     }
 
+    override fun i(tag: String, msg: String) {
+        process(Log.INFO, tag, msg, null)
+    }
+
     override fun w(tag: String, msg: String, tr: Throwable?) {
         process(Log.WARN, tag, msg, tr)
+    }
+
+    override fun w(tag: String, msg: String) {
+        process(Log.WARN, tag, msg, null)
     }
 
     override fun isLoggable(tag: String, level: Int): Boolean {
@@ -65,12 +81,20 @@ class LogImpl : ILog {
         process(Log.ERROR, tag, msg, tr)
     }
 
+    override fun e(tag: String, msg: String) {
+        process(Log.ERROR, tag, msg, null)
+    }
+
     override fun wtf(tag: String, tr: Throwable) {
         wtf(tag, "", tr)
     }
 
     override fun wtf(tag: String, msg: String, tr: Throwable?) {
         process(Log.WTF, tag, msg, tr)
+    }
+
+    override fun wtf(tag: String, msg: String) {
+        process(Log.WTF, tag, msg, null)
     }
 
     /**

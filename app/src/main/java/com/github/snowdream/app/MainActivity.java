@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 for (int i = 0; i <= 100000 ; i++){
-                    logger.i("ILog: ", String.valueOf(i),null);
+                    logger.i("ILog", String.valueOf(i));
                 }
 
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)

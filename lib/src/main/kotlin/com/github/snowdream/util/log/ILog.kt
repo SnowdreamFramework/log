@@ -37,6 +37,14 @@ interface ILog {
     fun v(tag: String, msg: String, tr: Throwable? = null)
 
     /**
+     * Send a {@link #VERBOSE} log message and log the exception.
+     * @param tag Used to identify the source of a log message.  It usually identifies
+     *        the class or activity where the log call occurs.
+     * @param msg The message you would like logged.
+     */
+    fun v(tag: String, msg: String)
+
+    /**
      * Send a {@link #DEBUG} log message and log the exception.
      * @param tag Used to identify the source of a log message.  It usually identifies
      *        the class or activity where the log call occurs.
@@ -44,6 +52,14 @@ interface ILog {
      * @param tr An exception to log
      */
     fun d(tag: String, msg: String, tr: Throwable? = null)
+
+    /**
+     * Send a {@link #DEBUG} log message and log the exception.
+     * @param tag Used to identify the source of a log message.  It usually identifies
+     *        the class or activity where the log call occurs.
+     * @param msg The message you would like logged.
+     */
+    fun d(tag: String, msg: String)
 
     /**
      * Send a {@link #INFO} log message and log the exception.
@@ -55,6 +71,14 @@ interface ILog {
     fun i(tag: String, msg: String, tr: Throwable? = null)
 
     /**
+     * Send a {@link #INFO} log message and log the exception.
+     * @param tag Used to identify the source of a log message.  It usually identifies
+     *        the class or activity where the log call occurs.
+     * @param msg The message you would like logged.
+     */
+    fun i(tag: String, msg: String)
+
+    /**
      * Send a {@link #WARN} log message and log the exception.
      * @param tag Used to identify the source of a log message.  It usually identifies
      *        the class or activity where the log call occurs.
@@ -62,6 +86,14 @@ interface ILog {
      * @param tr An exception to log
      */
     fun w(tag: String, msg: String, tr: Throwable? = null)
+
+    /**
+     * Send a {@link #WARN} log message and log the exception.
+     * @param tag Used to identify the source of a log message.  It usually identifies
+     *        the class or activity where the log call occurs.
+     * @param msg The message you would like logged.
+     */
+    fun w(tag: String, msg: String)
 
     /**
      * Checks to see whether or not a log for the specified tag is loggable at the specified level.
@@ -106,6 +138,16 @@ interface ILog {
     fun e(tag: String, msg: String, tr: Throwable? = null)
 
     /**
+     * Send a [.ERROR] log message and log the exception.
+     * @param tag Used to identify the source of a log message.  It usually identifies
+     * *        the class or activity where the log call occurs.
+     * *
+     * @param msg The message you would like logged.
+     * *
+     */
+    fun e(tag: String, msg: String)
+
+    /**
      * What a Terrible Failure: Report an exception that should never happen.
      * Similar to [.wtf], with an exception to log.
      * @param tag Used to identify the source of a log message.
@@ -124,6 +166,17 @@ interface ILog {
      * @param tr An exception to log.  May be null.
      */
     fun wtf(tag: String, msg: String, tr: Throwable? = null)
+
+    /**
+     * What a Terrible Failure: Report an exception that should never happen.
+     * Similar to [.wtf], with a message as well.
+     * @param tag Used to identify the source of a log message.
+     * *
+     * @param msg The message you would like logged.
+     * *
+     */
+    fun wtf(tag: String, msg: String)
+
 
     /**
      * Handy function to get a loggable stack trace from a Throwable
