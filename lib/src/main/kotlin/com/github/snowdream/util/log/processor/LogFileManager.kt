@@ -18,7 +18,7 @@ class LogFileManager {
             .newSingleThreadScheduledExecutor()
 
     init {
-        mServiceScheduled.scheduleAtFixedRate(ScheduledClearTask(), 30, 30, TimeUnit.SECONDS);
+        mServiceScheduled.scheduleAtFixedRate(ScheduledClearTask(), 10, 10, TimeUnit.SECONDS);
     }
 
     /**
@@ -85,9 +85,12 @@ class LogFileManager {
                     val time = System.currentTimeMillis() - lastModifiedTime
 
                     if (time >= TIME_OUT) {
+                        logfile.writer.flush()
                         logfile.writer.close()
 
                         it.remove()
+                    }else{
+                        logfile.writer.flush()
                     }
                 }
             } catch(e: IOException) {
