@@ -8,7 +8,7 @@ import java.util.*
  * Created by snowdream on 17/4/24.
  */
 class DefaultFileFormatter : AbstractLogFormatter() {
-    private var formatter: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.fff", Locale.getDefault())
+    private var formatter: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS", Locale.getDefault())
 
     override fun format(item: LogItem): String {
         val buffer: StringBuffer = StringBuffer()
