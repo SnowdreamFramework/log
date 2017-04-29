@@ -25,7 +25,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                testLogWithTrunk();
+                //testLogWithTrunk();
+                jsonLogTest();
+                xmlLogTest();
 
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
@@ -58,6 +60,26 @@ public class MainActivity extends AppCompatActivity {
             logger.i("ILog", String.valueOf(i));
         }
     }
+
+    private void jsonLogTest(){
+        String jsonString = "{\"name\": \"Elvis\", \"age\": 18}";
+
+        ILog logger = Log.getLogger(getApplicationContext(), true, true);
+
+        logger.json("ILog", jsonString);
+    }
+
+
+    private void xmlLogTest(){
+        String xmlString = "<team><member name=\"Elvis\"/><member name=\"Leon\"/></team>";
+
+
+        ILog logger = Log.getLogger(getApplicationContext(), true, true);
+
+        logger.xml("ILog", xmlString);
+    }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

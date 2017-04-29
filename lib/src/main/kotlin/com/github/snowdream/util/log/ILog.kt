@@ -2,6 +2,7 @@ package com.github.snowdream.util.log
 
 import android.content.Context
 import com.github.snowdream.toybricks.annotation.Interface
+import com.github.snowdream.util.log.transform.AbstractLogTransform
 
 
 /**
@@ -177,6 +178,30 @@ interface ILog {
      */
     fun wtf(tag: String, msg: String)
 
+    /**
+     * Send a {@link #INFO} log message and log the exception.
+     * @param tag Used to identify the source of a log message.  It usually identifies
+     *        the class or activity where the log call occurs.
+     * @param obj The object you would like logged.
+     * @param transform An transform to log
+     */
+    fun obj(tag: String, obj: Any, transform: AbstractLogTransform)
+
+    /**
+     * Send a {@link #INFO} log message and log the exception.
+     * @param tag Used to identify the source of a log message.  It usually identifies
+     *        the class or activity where the log call occurs.
+     * @param msg The message you would like logged.
+     */
+    fun json(tag: String, msg: String)
+
+    /**
+     * Send a {@link #INFO} log message and log the exception.
+     * @param tag Used to identify the source of a log message.  It usually identifies
+     *        the class or activity where the log call occurs.
+     * @param msg The message you would like logged.
+     */
+    fun xml(tag: String, msg: String)
 
     /**
      * Handy function to get a loggable stack trace from a Throwable

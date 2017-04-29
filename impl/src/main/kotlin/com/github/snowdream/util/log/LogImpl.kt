@@ -5,6 +5,9 @@ import com.github.snowdream.toybricks.annotation.Implementation
 import com.github.snowdream.util.log.processor.AbstractLogProcessor
 import com.github.snowdream.util.log.processor.LogConsoleProcessor
 import com.github.snowdream.util.log.processor.LogFileProcessor
+import com.github.snowdream.util.log.transform.AbstractLogTransform
+import com.github.snowdream.util.log.transform.DefaultJsonTransform
+import com.github.snowdream.util.log.transform.DefaultXmlTransform
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -15,7 +18,12 @@ import java.util.concurrent.Executors
 class LogImpl : ILog {
     private lateinit var mOption: LogOption
 
-    private var mSingleThreadExecutor: ExecutorService = Executors.newSingleThreadExecutor()
+    private val mSingleThreadExecutor: ExecutorService = Executors.newSingleThreadExecutor()
+
+    private val mXmlTransform:DefaultXmlTransform = DefaultXmlTransform()
+
+    private val mJsonTransform:DefaultJsonTransform = DefaultJsonTransform()
+
 
     private val LOG_MAX_LENGTH:Int = 4 * 1000
 
@@ -97,6 +105,26 @@ class LogImpl : ILog {
 
     override fun wtf(tag: String, msg: String) {
         process(Log.WTF, tag, msg, null)
+    }
+
+    override fun json(tag: String, msg: String) {
+        obj(tag,msg,mJsonTransform)
+    }
+
+    override fun xml(tag: String, msg: String) {
+        obj(tag,msg,mXmlTransform)
+    }
+
+    override fun obj(tag: String, obj: Any, transform: AbstractLogTransform) {
+        var msg:String = ""
+
+        try {
+            msg = transform.transform(obj)
+        } catch(e: Exception) {
+            e.printStackTrace()
+        }
+
+        process(Log.INFO, tag, msg, null)
     }
 
     /**
