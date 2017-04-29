@@ -23,8 +23,10 @@ class DefaultFileFormatter : AbstractLogFormatter() {
         buffer.append(":")
         buffer.append("\t")
         buffer.append(item.msg)
-        buffer.append("\n")
-        buffer.append(getStackTraceString(item.tr))
+        if (item.tr != null) {
+            buffer.append("\n")
+            buffer.append(getStackTraceString(item.tr))
+        }
 
         return buffer.toString()
     }
