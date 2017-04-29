@@ -1,29 +1,30 @@
 package com.github.snowdream.util.log.formatter
 
+import com.github.snowdream.util.log.LogItem
 import java.text.SimpleDateFormat
 import java.util.*
 
 /**
  * Created by snowdream on 17/4/24.
  */
-class DefaultFileFormatter  : AbstractLogFormatter(){
+class DefaultFileFormatter : AbstractLogFormatter() {
     private var formatter: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.fff", Locale.getDefault())
 
-    override fun format(level: Int, tag: String, msg: String, tr: Throwable?): String {
-        val buffer:StringBuffer = StringBuffer()
+    override fun format(item: LogItem): String {
+        val buffer: StringBuffer = StringBuffer()
 
         val myDate = Date()
 
         buffer.append(formatter.format(myDate))
         buffer.append("\t")
-        buffer.append(getLevelString(level))
+        buffer.append(getLevelString(item.level))
         buffer.append("/")
-        buffer.append(tag)
+        buffer.append(item.tag)
         buffer.append(":")
         buffer.append("\t")
-        buffer.append(msg)
+        buffer.append(item.msg)
         buffer.append("\n")
-        buffer.append(getStackTraceString(tr))
+        buffer.append(getStackTraceString(item.tr))
 
         return buffer.toString()
     }

@@ -1,6 +1,5 @@
 package com.github.snowdream.util.log
 
-import com.github.snowdream.util.log.filter.AbstractLogFilter
 import com.github.snowdream.util.log.processor.AbstractLogProcessor
 
 /**
@@ -8,4 +7,4 @@ import com.github.snowdream.util.log.processor.AbstractLogProcessor
  *
  * Created by snowdream on 17/4/23.
  */
-data class LogOption(val logProcessors: List<AbstractLogProcessor>, val logFilters: List<AbstractLogFilter> ?= null)
+data class LogOption(val logProcessors: List<AbstractLogProcessor>)

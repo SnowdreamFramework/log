@@ -46,10 +46,10 @@ class Log {
         /**
          * Get logger with custion option
          */
-        @JvmStatic fun getLogger(option: LogOption? = null):ILog {
-            val logger : ILog = ToyBricks.getImplementation(ILog::class.java)
+        @JvmStatic fun getLogger(option: LogOption? = null): ILog {
+            val logger: ILog = ToyBricks.getImplementation(ILog::class.java)
 
-            if (option != null){
+            if (option != null) {
                 logger.setOption(option)
             }
 
@@ -59,10 +59,10 @@ class Log {
         /**
          * Get logger to support console or file
          */
-        @JvmStatic fun getLogger(context: Context, console: Boolean = true, file: Boolean = false):ILog {
-            val logger : ILog = ToyBricks.getImplementation(ILog::class.java)
+        @JvmStatic fun getLogger(context: Context, console: Boolean = true, file: Boolean = false): ILog {
+            val logger: ILog = ToyBricks.getImplementation(ILog::class.java)
 
-            logger.setOption(context,console,file)
+            logger.setOption(context, console, file)
 
             return logger
         }

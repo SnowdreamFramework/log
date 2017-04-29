@@ -1,12 +1,13 @@
 package com.github.snowdream.util.log.filter
 
 import android.text.TextUtils
+import com.github.snowdream.util.log.LogItem
 import java.util.regex.Pattern
 
 /**
  * Created by snowdream on 17/4/24.
  */
-class ContentFilter : AbstractLogFilter{
+class ContentFilter : AbstractLogFilter {
     private var msgList: MutableList<String> = mutableListOf()
 
     private var msgRegularMap: MutableMap<String, Pattern> = mutableMapOf()
@@ -17,58 +18,58 @@ class ContentFilter : AbstractLogFilter{
     private var isRegular = false
 
     constructor(msg: String, isRegular: Boolean = false) {
-        if (!msgList.contains(msg)){
+        if (!msgList.contains(msg)) {
             msgList.add(msg)
         }
 
         this.isRegular = isRegular
 
-        if (isRegular){
-            if (!msgRegularMap.containsKey(msg)){
-                val pattern  = Pattern.compile(msg)
-                msgRegularMap.put(msg,pattern)
+        if (isRegular) {
+            if (!msgRegularMap.containsKey(msg)) {
+                val pattern = Pattern.compile(msg)
+                msgRegularMap.put(msg, pattern)
             }
         }
     }
 
 
-    constructor(msgs: List<String>,isRegular: Boolean = false){
-        for (msg in msgs){
-            if (TextUtils.isEmpty(msg)){
+    constructor(msgs: List<String>, isRegular: Boolean = false) {
+        for (msg in msgs) {
+            if (TextUtils.isEmpty(msg)) {
                 continue
             }
 
-            if (!msgList.contains(msg)){
+            if (!msgList.contains(msg)) {
                 msgList.add(msg)
             }
 
             this.isRegular = isRegular
 
-            if (isRegular){
-                if (!msgRegularMap.containsKey(msg)){
-                    val pattern  = Pattern.compile(msg)
-                    msgRegularMap.put(msg,pattern)
+            if (isRegular) {
+                if (!msgRegularMap.containsKey(msg)) {
+                    val pattern = Pattern.compile(msg)
+                    msgRegularMap.put(msg, pattern)
                 }
             }
         }
     }
 
-    override fun filter(level: Int, tag: String, msg: String): Boolean {
-        if (msgList.isEmpty() && msgRegularMap.isEmpty()){
+    override fun filter(item: LogItem): Boolean {
+        if (msgList.isEmpty() && msgRegularMap.isEmpty()) {
             return true
         }
 
-        if (isRegular){
+        if (isRegular) {
             for ((regular, pattern) in msgRegularMap) {
-                val matcher  = pattern.matcher(msg)
+                val matcher = pattern.matcher(item.msg)
 
-                if (matcher.matches()){
+                if (matcher.matches()) {
                     return true
                 }
             }
-        }else{
+        } else {
             msgList
-                    .filter { msg.contains(it) }
+                    .filter { item.msg.contains(it) }
                     .forEach { return true }
         }
 

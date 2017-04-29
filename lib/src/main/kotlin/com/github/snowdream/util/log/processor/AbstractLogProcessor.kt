@@ -4,13 +4,14 @@ import android.content.Context
 import android.os.Handler
 import android.os.HandlerThread
 import com.github.snowdream.util.log.LogItem
+import com.github.snowdream.util.log.filter.AbstractLogFilter
 import com.github.snowdream.util.log.formatter.AbstractLogFormatter
 import com.github.snowdream.util.log.generator.AbstractFilePathGenerator
 
 /**
  * Created by snowdream on 17/4/23.
  */
-abstract class AbstractLogProcessor :Handler.Callback{
+abstract class AbstractLogProcessor : Handler.Callback {
     /**
      * Log Formatter
      */
@@ -22,9 +23,14 @@ abstract class AbstractLogProcessor :Handler.Callback{
     protected lateinit var mFilePathGenerator: AbstractFilePathGenerator
 
     /**
+     * Log Filters
+     */
+    protected var mLogFilters: List<AbstractLogFilter>? = null
+
+    /**
      *  Handler Thread
-    */
-    protected lateinit var mHandlerThread:HandlerThread
+     */
+    protected lateinit var mHandlerThread: HandlerThread
 
     /**
      *  Handler
@@ -34,13 +40,14 @@ abstract class AbstractLogProcessor :Handler.Callback{
     /**
      * MSG
      */
-    protected val MSG_LOG:Int = 0x10
+    protected val MSG_LOG: Int = 0x10
 
     constructor(context: Context)
 
-    constructor(context: Context,logFormatter: AbstractLogFormatter, filePathGenerator: AbstractFilePathGenerator) {
+    constructor(context: Context, logFormatter: AbstractLogFormatter, filePathGenerator: AbstractFilePathGenerator, logFilters: List<AbstractLogFilter>? = null) {
         mLogFormatter = logFormatter
         mFilePathGenerator = filePathGenerator
+        mLogFilters = logFilters
     }
 
     /**
@@ -54,5 +61,5 @@ abstract class AbstractLogProcessor :Handler.Callback{
      * *
      * @return
      */
-    abstract fun process(item:LogItem)
+    abstract fun process(item: LogItem)
 }

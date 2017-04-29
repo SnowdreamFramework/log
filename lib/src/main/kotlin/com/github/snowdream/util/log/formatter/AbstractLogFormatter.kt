@@ -1,6 +1,7 @@
 package com.github.snowdream.util.log.formatter
 
 import com.github.snowdream.util.log.Log
+import com.github.snowdream.util.log.LogItem
 import java.io.PrintWriter
 import java.io.StringWriter
 import java.net.UnknownHostException
@@ -15,15 +16,11 @@ abstract class AbstractLogFormatter {
     /**
      * format the log.
      *
-     * @param level
-     * *
-     * @param tag
-     * *
-     * @param msg
-     * *
+     * @param item
+     *
      * @return
      */
-    abstract fun format(level: Int, tag: String, msg: String, tr: Throwable ?= null): String
+    abstract fun format(item: LogItem): String
 
 
     /**
@@ -56,12 +53,12 @@ abstract class AbstractLogFormatter {
     /**
      * get level string
      */
-    fun getLevelString(level:Int):String{
-        if (level< Log.VERBOSE || level > Log.WTF) {
+    fun getLevelString(level: Int): String {
+        if (level < Log.VERBOSE || level > Log.WTF) {
             throw IllegalArgumentException("The log level is invalid")
         }
 
-        when(level){
+        when (level) {
             Log.INFO -> return "I"
             Log.ASSERT -> return "A"
             Log.DEBUG -> return "D"

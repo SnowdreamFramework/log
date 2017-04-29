@@ -1,5 +1,7 @@
 package com.github.snowdream.util.log.formatter
 
+import com.github.snowdream.util.log.LogItem
+
 /**
  * Default log formatter for console and file
  *
@@ -7,11 +9,11 @@ package com.github.snowdream.util.log.formatter
  */
 class DefaultFormatter : AbstractLogFormatter() {
 
-    override fun format(level: Int, tag: String, msg: String, tr: Throwable?): String {
-        if(tr == null){
-            return msg
-        }else{
-            return msg + '\n' + getStackTraceString(tr)
+    override fun format(item: LogItem): String {
+        if (item.tr == null) {
+            return item.msg
+        } else {
+            return item.msg + '\n' + getStackTraceString(item.tr)
         }
     }
 }

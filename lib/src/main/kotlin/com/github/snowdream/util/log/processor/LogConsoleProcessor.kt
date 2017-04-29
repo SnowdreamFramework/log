@@ -6,6 +6,7 @@ import android.os.HandlerThread
 import android.os.Message
 import com.github.snowdream.util.log.Log
 import com.github.snowdream.util.log.LogItem
+import com.github.snowdream.util.log.filter.AbstractLogFilter
 import com.github.snowdream.util.log.formatter.AbstractLogFormatter
 import com.github.snowdream.util.log.formatter.DefaultFormatter
 import com.github.snowdream.util.log.generator.AbstractFilePathGenerator
@@ -28,7 +29,7 @@ class LogConsoleProcessor : AbstractLogProcessor {
         mHandler = Handler(mHandlerThread.looper, this)
     }
 
-    constructor(context: Context, logFormatter: AbstractLogFormatter, filePathGenerator: AbstractFilePathGenerator) : super(context, logFormatter, filePathGenerator) {
+    constructor(context: Context, logFormatter: AbstractLogFormatter, filePathGenerator: AbstractFilePathGenerator, logFilters: List<AbstractLogFilter>? = null) : super(context, logFormatter, filePathGenerator, logFilters) {
         mHandlerThread = HandlerThread("LogConsoleProcessor")
         mHandlerThread.start()
 
@@ -36,6 +37,13 @@ class LogConsoleProcessor : AbstractLogProcessor {
     }
 
     override fun process(item: LogItem) {
+        //log Filters
+        if (mLogFilters != null) {
+            mLogFilters!!
+                    .filterNot { it.filter(item) }
+                    .forEach { return }
+        }
+
         mHandler.sendMessage(Message.obtain(mHandler, MSG_LOG, item))
     }
 
@@ -48,7 +56,7 @@ class LogConsoleProcessor : AbstractLogProcessor {
 
                 val item: LogItem = msg.obj as LogItem
 
-                val content: String = mLogFormatter.format(item.level, item.tag, item.msg, item.tr)
+                val content: String = mLogFormatter.format(item)
 
                 when (item.level) {
                     Log.INFO -> {

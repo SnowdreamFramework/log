@@ -1,7 +1,6 @@
 package com.github.snowdream.util.log.generator
 
 import android.content.Context
-import com.github.snowdream.util.log.generator.AbstractFilePathGenerator
 import java.io.File
 import java.io.IOException
 
@@ -32,18 +31,18 @@ class DefaultFilePathGenerator : AbstractFilePathGenerator {
 
 
     override fun generateFilePath(): String {
-         val logDir = File(dir)
+        val logDir = File(dir)
 
         if (!logDir.exists()) {
             logDir.mkdirs()
         }
 
-        file = File(logDir, filename+suffix)
+        file = File(logDir, filename + suffix)
 
         if (!file!!.exists()) {
             try {
                 file!!.createNewFile()
-            } catch ( e: IOException) {
+            } catch (e: IOException) {
                 e.printStackTrace()
             }
         }
@@ -51,8 +50,7 @@ class DefaultFilePathGenerator : AbstractFilePathGenerator {
         return file!!.getAbsolutePath()
     }
 
-    override fun isGenerate():Boolean
-    {
+    override fun isGenerate(): Boolean {
         return (file == null) || !file!!.exists()
     }
 

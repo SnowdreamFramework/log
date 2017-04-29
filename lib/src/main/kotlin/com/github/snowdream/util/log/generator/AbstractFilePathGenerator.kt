@@ -43,7 +43,7 @@ abstract class AbstractFilePathGenerator {
      * *
      * @param suffix
      */
-    constructor(context: Context, filename: String, suffix: String){
+    constructor(context: Context, filename: String, suffix: String) {
 
         dir = context.getExternalFilesDir(null).getAbsolutePath() + File.separator + "snowdream" + File.separator + "log"
 
@@ -114,12 +114,12 @@ abstract class AbstractFilePathGenerator {
      * @return the file path of the log.
      */
     fun getPath(): String {
-        val isGenerate:Boolean = isGenerate()
+        val isGenerate: Boolean = isGenerate()
 
-        if (TextUtils.isEmpty(path) || isGenerate){
+        if (TextUtils.isEmpty(path) || isGenerate) {
             val newPath = generateFilePath()
 
-            if (!TextUtils.isEmpty(path) && isGenerate){
+            if (!TextUtils.isEmpty(path) && isGenerate) {
                 onGenerate(newPath, path)
             }
 

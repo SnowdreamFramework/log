@@ -74,15 +74,6 @@ class LogImpl : ILog {
      * process the log
      */
     fun process(level: Int, tag: String, msg: String, tr: Throwable?){
-        //log Filters
-        val logFilters: List<AbstractLogFilter> ?= option.logFilters
-
-        if (logFilters != null){
-            logFilters
-                    .filterNot { it.filter(level ,tag ,msg) }
-                    .forEach { return }
-        }
-
         //log Processors
         val item: LogItem = LogItem(level, tag, msg, tr)
         val logProcessors: List<AbstractLogProcessor> = option.logProcessors

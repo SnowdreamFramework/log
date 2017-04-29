@@ -1,12 +1,13 @@
 package com.github.snowdream.util.log.filter
 
 import android.text.TextUtils
+import com.github.snowdream.util.log.LogItem
 import java.util.regex.Pattern
 
 /**
  * Created by snowdream on 17/4/24.
  */
-class TagFilter : AbstractLogFilter{
+class TagFilter : AbstractLogFilter {
     private var tagList: MutableList<String> = mutableListOf()
 
     private var tagRegularMap: MutableMap<String, Pattern> = mutableMapOf()
@@ -17,57 +18,57 @@ class TagFilter : AbstractLogFilter{
     private var isRegular = false
 
     constructor(tag: String, isRegular: Boolean = false) {
-        if (!tagList.contains(tag)){
+        if (!tagList.contains(tag)) {
             tagList.add(tag)
         }
 
         this.isRegular = isRegular
 
-        if (isRegular){
-            if (!tagRegularMap.containsKey(tag)){
-                val pattern  = Pattern.compile(tag)
-                tagRegularMap.put(tag,pattern)
+        if (isRegular) {
+            if (!tagRegularMap.containsKey(tag)) {
+                val pattern = Pattern.compile(tag)
+                tagRegularMap.put(tag, pattern)
             }
         }
     }
 
 
-    constructor(tags: List<String>,isRegular: Boolean = false){
-        for (tag in tags){
-            if (TextUtils.isEmpty(tag)){
+    constructor(tags: List<String>, isRegular: Boolean = false) {
+        for (tag in tags) {
+            if (TextUtils.isEmpty(tag)) {
                 continue
             }
 
-            if (!tagList.contains(tag)){
+            if (!tagList.contains(tag)) {
                 tagList.add(tag)
             }
 
             this.isRegular = isRegular
 
-            if (isRegular){
-                if (!tagRegularMap.containsKey(tag)){
-                    val pattern  = Pattern.compile(tag)
-                    tagRegularMap.put(tag,pattern)
+            if (isRegular) {
+                if (!tagRegularMap.containsKey(tag)) {
+                    val pattern = Pattern.compile(tag)
+                    tagRegularMap.put(tag, pattern)
                 }
             }
         }
     }
 
-    override fun filter(level: Int, tag: String, msg: String): Boolean {
-        if (tagList.isEmpty() && tagRegularMap.isEmpty()){
+    override fun filter(item: LogItem): Boolean {
+        if (tagList.isEmpty() && tagRegularMap.isEmpty()) {
             return true
         }
 
-        if (isRegular){
+        if (isRegular) {
             for ((regular, pattern) in tagRegularMap) {
-                val matcher  = pattern.matcher(tag)
+                val matcher = pattern.matcher(item.msg)
 
-                if (matcher.matches()){
+                if (matcher.matches()) {
                     return true
                 }
             }
-        }else{
-            if (tagList.contains(tag)){
+        } else {
+            if (tagList.contains(item.tag)) {
                 return true
             }
         }

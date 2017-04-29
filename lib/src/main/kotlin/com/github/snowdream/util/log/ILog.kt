@@ -25,7 +25,7 @@ interface ILog {
      *
      * @param file  enable log 2 file
      */
-    fun setOption(context:Context, console: Boolean = true, file: Boolean = false)
+    fun setOption(context: Context, console: Boolean = true, file: Boolean = false)
 
     /**
      * Send a {@link #VERBOSE} log message and log the exception.
@@ -34,7 +34,7 @@ interface ILog {
      * @param msg The message you would like logged.
      * @param tr An exception to log
      */
-    fun v(tag: String, msg: String,tr: Throwable? = null)
+    fun v(tag: String, msg: String, tr: Throwable? = null)
 
     /**
      * Send a {@link #DEBUG} log message and log the exception.
@@ -43,7 +43,7 @@ interface ILog {
      * @param msg The message you would like logged.
      * @param tr An exception to log
      */
-    fun d(tag: String, msg: String,tr: Throwable? = null)
+    fun d(tag: String, msg: String, tr: Throwable? = null)
 
     /**
      * Send a {@link #INFO} log message and log the exception.
@@ -52,7 +52,7 @@ interface ILog {
      * @param msg The message you would like logged.
      * @param tr An exception to log
      */
-    fun i(tag: String, msg: String,tr: Throwable? = null)
+    fun i(tag: String, msg: String, tr: Throwable? = null)
 
     /**
      * Send a {@link #WARN} log message and log the exception.
@@ -61,7 +61,7 @@ interface ILog {
      * @param msg The message you would like logged.
      * @param tr An exception to log
      */
-    fun w(tag: String, msg: String,tr: Throwable? = null)
+    fun w(tag: String, msg: String, tr: Throwable? = null)
 
     /**
      * Checks to see whether or not a log for the specified tag is loggable at the specified level.
@@ -103,7 +103,7 @@ interface ILog {
      * *
      * @param tr An exception to log
      */
-    fun e(tag: String, msg: String,tr: Throwable? = null)
+    fun e(tag: String, msg: String, tr: Throwable? = null)
 
     /**
      * What a Terrible Failure: Report an exception that should never happen.
@@ -123,7 +123,7 @@ interface ILog {
      * *
      * @param tr An exception to log.  May be null.
      */
-    fun wtf(tag: String, msg: String,tr: Throwable? = null)
+    fun wtf(tag: String, msg: String, tr: Throwable? = null)
 
     /**
      * Handy function to get a loggable stack trace from a Throwable
