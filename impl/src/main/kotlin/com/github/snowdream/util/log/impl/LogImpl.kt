@@ -1,7 +1,11 @@
-package com.github.snowdream.util.log
+package com.github.snowdream.util.log.impl
 
 import android.content.Context
 import com.github.snowdream.toybricks.annotation.Implementation
+import com.github.snowdream.util.log.ILog
+import com.github.snowdream.util.log.Log
+import com.github.snowdream.util.log.LogItem
+import com.github.snowdream.util.log.LogOption
 import com.github.snowdream.util.log.processor.AbstractLogProcessor
 import com.github.snowdream.util.log.processor.LogConsoleProcessor
 import com.github.snowdream.util.log.processor.LogFileProcessor
@@ -20,9 +24,9 @@ class LogImpl : ILog {
 
     private val mSingleThreadExecutor: ExecutorService = Executors.newSingleThreadExecutor()
 
-    private val mXmlTransform:DefaultXmlTransform = DefaultXmlTransform()
+    private val mXmlTransform: DefaultXmlTransform = DefaultXmlTransform()
 
-    private val mJsonTransform:DefaultJsonTransform = DefaultJsonTransform()
+    private val mJsonTransform: DefaultJsonTransform = DefaultJsonTransform()
 
 
     private val LOG_MAX_LENGTH:Int = 4 * 1000
