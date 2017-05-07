@@ -8,10 +8,10 @@ kapt {
 }
 
 dependencies {
-    compile "com.github.snowdream.toybricks:annotation:0.9.10"
+    compile deps.'android-toybricks-annotation'
 
-    kapt "com.github.snowdream.toybricks:processor:0.9.10"
-    //annotationProcessor "com.github.snowdream.toybricks:processor:0.9.10"
+    kapt deps.'android-toybricks-processor'
+    //annotationProcessor deps.'android-toybricks-processor'
 
     compile project(':lib')
 }

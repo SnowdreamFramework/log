@@ -25,5 +25,8 @@ ext {
             //snowdream
             "android-toybricks-gradle-plugin"    : "com.github.snowdream.toybricks:android-toybricks-gradle-plugin:0.9.10",
             "snowdream-annotation"               : "com.github.snowdream:annotation:0.7@aar",
+            "android-toybricks-processor"               : "com.github.snowdream.toybricks:processor:0.9.10",
+            "android-toybricks-annotation"               : "com.github.snowdream.toybricks:annotation:0.9.10",
+            "android-toybricks"               : "com.github.snowdream:toybricks:0.9.10@aar",
     ]
 }
