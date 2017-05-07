@@ -1,6 +1,7 @@
 package com.github.snowdream.util.log.impl
 
 import android.content.Context
+import android.text.TextUtils
 import com.github.snowdream.toybricks.annotation.Implementation
 import com.github.snowdream.util.log.ILog
 import com.github.snowdream.util.log.Log
@@ -29,7 +30,7 @@ class LogImpl : ILog {
     private val mJsonTransform: DefaultJsonTransform = DefaultJsonTransform()
 
 
-    private val LOG_MAX_LENGTH:Int = 4 * 1000
+    private val LOG_MAX_LENGTH: Int = 4 * 1000
 
     override fun setOption(option: LogOption) {
         this.mOption = option
@@ -112,49 +113,59 @@ class LogImpl : ILog {
     }
 
     override fun json(tag: String, msg: String) {
-        obj(tag,msg,mJsonTransform)
+        obj(tag, msg, mJsonTransform)
     }
 
     override fun xml(tag: String, msg: String) {
-        obj(tag,msg,mXmlTransform)
+        obj(tag, msg, mXmlTransform)
     }
 
     override fun obj(tag: String, obj: Any, transform: AbstractLogTransform) {
-        var msg:String = ""
-
-        try {
-            msg = transform.transform(obj)
-        } catch(e: Exception) {
-            e.printStackTrace()
-        }
-
-        process(Log.INFO, tag, msg, null)
+        process(Log.INFO, tag, "", null, obj, transform)
     }
 
     /**
      * process the log
      */
-    fun process(level: Int, tag: String, msg: String, tr: Throwable?) {
+    private fun process(level: Int, tag: String, msg: String, tr: Throwable?) {
+        process(level, tag, msg, tr, null, null)
+    }
+
+    /**
+     * process the log
+     */
+    private fun process(level: Int, tag: String, msg: String, tr: Throwable?, obj: Any?, transform: AbstractLogTransform?) {
         mSingleThreadExecutor.execute({
-            if (msg.length <= LOG_MAX_LENGTH){
+            var _msg = msg
+
+            if (_msg.length <= LOG_MAX_LENGTH) {
+                //log transform
+                if (TextUtils.isEmpty(_msg) && obj != null && transform != null) {
+                    try {
+                        _msg = transform.transform(obj)
+                    } catch(e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+
                 //log Processors
-                val item: LogItem = LogItem(level, tag, msg, tr)
+                val item: LogItem = LogItem(level, tag, _msg, tr)
                 val logProcessors: List<AbstractLogProcessor> = mOption.logProcessors
 
                 logProcessors.forEach {
                     it.process(item)
                 }
-            }else{
-                var log:String = msg
+            } else {
+                var log: String = _msg
 
-                while (log.length > LOG_MAX_LENGTH){
-                    val trunk:String = log.substring(0, LOG_MAX_LENGTH)
-                    process(level,tag,trunk,tr)
+                while (log.length > LOG_MAX_LENGTH) {
+                    val trunk: String = log.substring(0, LOG_MAX_LENGTH)
+                    process(level, tag, trunk, tr)
 
                     log = log.substring(LOG_MAX_LENGTH)
                 }
 
-                process(level,tag,log,tr)
+                process(level, tag, log, tr)
             }
         })
 
