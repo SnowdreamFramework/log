@@ -9,7 +9,7 @@ import com.github.snowdream.util.log.filter.AbstractLogFilter
 import com.github.snowdream.util.log.formatter.AbstractLogFormatter
 import com.github.snowdream.util.log.formatter.DefaultFileFormatter
 import com.github.snowdream.util.log.generator.AbstractFilePathGenerator
-import com.github.snowdream.util.log.generator.TagFilePathGenerator
+import com.github.snowdream.util.log.generator.DefaultFilePathGenerator
 
 /**
  * Log File Processor
@@ -21,7 +21,7 @@ class LogFileProcessor : AbstractLogProcessor {
 
     constructor(context: Context) : super(context) {
         mLogFormatter = DefaultFileFormatter()
-        mFilePathGenerator = TagFilePathGenerator(context, "app", ".log")
+        mFilePathGenerator = DefaultFilePathGenerator(context, "app", ".log")
 
         mHandlerThread = HandlerThread("LogFileProcessor")
         mHandlerThread.start()
