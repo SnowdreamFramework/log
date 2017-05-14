@@ -8,7 +8,7 @@ import java.io.IOException
 /**
  * Created by snowdream on 17/4/23.
  */
-class DefaultFilePathGenerator : AbstractFilePathGenerator {
+class TagFilePathGenerator : AbstractFilePathGenerator {
 
     /**
      * dir will be context.getExternalFilesDir("null").getAbsolutePath() + File.separator + "snowdream" + File.separator + "log"
@@ -38,6 +38,8 @@ class DefaultFilePathGenerator : AbstractFilePathGenerator {
             logDir.mkdirs()
         }
 
+        filename = item.tag
+
         file = File(logDir, filename + suffix)
 
         if (!file!!.exists()) {
@@ -52,7 +54,9 @@ class DefaultFilePathGenerator : AbstractFilePathGenerator {
     }
 
     override fun isGenerate(item: LogItem): Boolean {
-        return (file == null) || !file!!.exists()
+        val _filename = item.tag
+
+        return (file == null) || !file!!.exists() || !_filename.equals(filename,false)
     }
 
     override fun onGenerate(newPath: String, oldPath: String) {

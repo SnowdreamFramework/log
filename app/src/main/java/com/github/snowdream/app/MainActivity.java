@@ -26,8 +26,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 //testLogWithTrunk();
-                jsonLogTest();
-                xmlLogTest();
+                //jsonLogTest();
+                //xmlLogTest();
+
+                tagfileTest();
 
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
@@ -79,6 +81,16 @@ public class MainActivity extends AppCompatActivity {
         logger.xml("ILog", xmlString);
     }
 
+
+    private void tagfileTest() {
+        String xmlString = "<team><member name=\"Elvis\"/><member name=\"Leon\"/></team>";
+
+        ILog logger = Log.getLogger(getApplicationContext(), true, true);
+
+        for (int i = 0; i <= 10; i++) {
+            logger.i("ILog_"+i, xmlString);
+        }
+    }
 
 
     @Override

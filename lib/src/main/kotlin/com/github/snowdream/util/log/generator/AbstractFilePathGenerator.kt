@@ -2,6 +2,7 @@ package com.github.snowdream.util.log.generator
 
 import android.content.Context
 import android.text.TextUtils
+import com.github.snowdream.util.log.LogItem
 import java.io.File
 
 
@@ -87,14 +88,14 @@ abstract class AbstractFilePathGenerator {
 
      * @return the file path of the log
      */
-    abstract fun generateFilePath(): String
+    protected abstract fun generateFilePath(item: LogItem): String
 
     /**
      * Whetether to generate the file path of the log.
 
      * @return if true,generate the file path of the log, otherwise not.
      */
-    abstract fun isGenerate(): Boolean
+    abstract fun isGenerate(item: LogItem): Boolean
 
     /**
      * It is time to generate the new file path of the log.
@@ -113,11 +114,11 @@ abstract class AbstractFilePathGenerator {
 
      * @return the file path of the log.
      */
-    fun getPath(): String {
-        val isGenerate: Boolean = isGenerate()
+    fun getPath(item: LogItem): String {
+        val isGenerate: Boolean = isGenerate(item)
 
         if (TextUtils.isEmpty(path) || isGenerate) {
-            val newPath = generateFilePath()
+            val newPath = generateFilePath(item)
 
             if (!TextUtils.isEmpty(path) && isGenerate) {
                 onGenerate(newPath, path)

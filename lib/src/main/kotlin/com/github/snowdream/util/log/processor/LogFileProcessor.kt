@@ -8,9 +8,8 @@ import com.github.snowdream.util.log.LogItem
 import com.github.snowdream.util.log.filter.AbstractLogFilter
 import com.github.snowdream.util.log.formatter.AbstractLogFormatter
 import com.github.snowdream.util.log.formatter.DefaultFileFormatter
-import com.github.snowdream.util.log.formatter.DefaultFormatter
 import com.github.snowdream.util.log.generator.AbstractFilePathGenerator
-import com.github.snowdream.util.log.generator.DefaultFilePathGenerator
+import com.github.snowdream.util.log.generator.TagFilePathGenerator
 
 /**
  * Log File Processor
@@ -22,7 +21,7 @@ class LogFileProcessor : AbstractLogProcessor {
 
     constructor(context: Context) : super(context) {
         mLogFormatter = DefaultFileFormatter()
-        mFilePathGenerator = DefaultFilePathGenerator(context, "app", ".log")
+        mFilePathGenerator = TagFilePathGenerator(context, "app", ".log")
 
         mHandlerThread = HandlerThread("LogFileProcessor")
         mHandlerThread.start()
@@ -59,7 +58,7 @@ class LogFileProcessor : AbstractLogProcessor {
                 val item: LogItem = msg.obj as LogItem
 
                 val content: String = mLogFormatter.format(item)
-                val filePath: String = mFilePathGenerator.getPath()
+                val filePath: String = mFilePathGenerator.getPath(item)
 
                 mLogFileManager.write(filePath, content)
             }

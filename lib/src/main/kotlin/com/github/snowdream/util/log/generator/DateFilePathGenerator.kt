@@ -1,6 +1,7 @@
 package com.github.snowdream.util.log.generator
 
 import android.content.Context
+import com.github.snowdream.util.log.LogItem
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -32,8 +33,7 @@ class DateFilePathGenerator : AbstractFilePathGenerator {
      */
     constructor(dir: String, filename: String, suffix: String) : super(dir, filename, suffix)
 
-
-    override fun generateFilePath(): String {
+    override fun generateFilePath(item: LogItem): String {
         val logDir = File(dir)
         if (!logDir.exists()) {
             logDir.mkdirs()
@@ -64,7 +64,7 @@ class DateFilePathGenerator : AbstractFilePathGenerator {
         return file!!.absolutePath
     }
 
-    override fun isGenerate(): Boolean {
+    override fun isGenerate(item: LogItem): Boolean {
         return (file == null) || !file!!.exists()
     }
 
