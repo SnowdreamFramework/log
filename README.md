@@ -21,6 +21,7 @@ For Java or Kotlin project add in build.gradle file:
 ```groovy
 dependencies {
     compile 'com.github.snowdream.util:log:(latest version)'
+    compile 'com.github.snowdream.util:logImpl:(latest version)'
 }
 ```
 
