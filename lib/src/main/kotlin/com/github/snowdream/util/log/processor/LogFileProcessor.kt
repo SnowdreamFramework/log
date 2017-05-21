@@ -17,7 +17,6 @@ import com.github.snowdream.util.log.generator.DefaultFilePathGenerator
  * Created by snowdream on 17/4/24.
  */
 class LogFileProcessor : AbstractLogProcessor {
-    private var mLogFileManager: LogFileManager = LogFileManager()
 
     constructor(context: Context) : super(context) {
         mLogFormatter = DefaultFileFormatter()
@@ -60,7 +59,7 @@ class LogFileProcessor : AbstractLogProcessor {
                 val content: String = mLogFormatter.format(item)
                 val filePath: String = mFilePathGenerator.getPath(item)
 
-                mLogFileManager.write(filePath, content)
+                LogFileManager.write(filePath, content)
             }
             else -> {
             }

@@ -29,7 +29,9 @@ public class MainActivity extends AppCompatActivity {
                 //jsonLogTest();
                 //xmlLogTest();
 
-                tagfileTest();
+                //tagfileTest();
+
+                testLogs();
 
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
@@ -60,6 +62,12 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i <= 100000; i++) {
             logger.i("ILog", String.valueOf(i));
+        }
+
+        ILog log = Log.getLogger(getApplicationContext(), true, true);
+
+        for (int i = 0; i <= 100000; i++) {
+            log.i("ILog1", String.valueOf(i));
         }
     }
 

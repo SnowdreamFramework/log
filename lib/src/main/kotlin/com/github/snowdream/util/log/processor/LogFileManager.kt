@@ -11,7 +11,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock
  *
  * Created by snowdream on 17/4/27.
  */
-class LogFileManager {
+object LogFileManager {
     private var mReadWriteLock: ReentrantReadWriteLock = ReentrantReadWriteLock()
 
     private var mServiceScheduled: ScheduledExecutorService = Executors
@@ -67,7 +67,7 @@ class LogFileManager {
         }
     }
 
-    private inner class ScheduledClearTask : Runnable {
+    private class ScheduledClearTask : Runnable {
         val TIME_OUT: Long = 30 * 1000
 
         override fun run() {
