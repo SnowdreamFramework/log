@@ -4,6 +4,8 @@
 [![LICENSE](https://img.shields.io/hexpm/l/plug.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
 ## 中文文档
+[SnowdreamFramework/log－ 一个靠谱的Android Log封装库](https://mp.weixin.qq.com/s?__biz=MzIyNTczOTYwMA==&mid=2247483926&idx=1&sn=38349298cfa64b5281ec55af0a9cfaf9&chksm=e87a5429df0ddd3f2fd8bc1f7082724032cb5d04f8acc72a3525078cfb0fee90b5db858177f6#rd)
+
 
 ## Introduction
 SnowdreamFramework/log
